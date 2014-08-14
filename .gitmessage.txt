@@ -1,0 +1,18 @@
+    
+** 1st version of VISA drivers/controlers for Agilent E4980A (LCR meter) **
+   
+This 1st version includes:
+   
+- Initialization of Instrument-PC communication via VISA library.
+- Configuration of Instrument for 2 types of DUT (Element trace, Dielectric)
+  as well as two measurement setups (single frequency, frequency sweep)
+- Trigers the instrument and recovers measurements to be stored in a list
+  type array ("result")
+
+
+	MODIFICATION No. :
+
+	Modifications Introduced:
+
+
+***  Eusebio OLG   ***
