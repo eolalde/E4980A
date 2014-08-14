@@ -63,7 +63,7 @@ def run_single():
             stb = LCR.ask_for_values('*stb?')
             if stb[0] == 192:
                 j = False
-#            print stb
+        
         res = LCR.ask_for_values(':fetch?')
         print res
         result.append(res)
@@ -102,7 +102,7 @@ def run_sweep():
             stb = LCR.ask_for_values(':stat:oper:cond?')
             if stb[0] == 0:
                 j = False
-#            print stb
+        
         res = [sweepfreq[ii]]
         res = res + LCR.ask_for_values(':fetch?')[:3]
         print res
