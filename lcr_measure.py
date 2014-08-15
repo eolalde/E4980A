@@ -2,7 +2,7 @@
 """
 Created on Fri Aug 08 15:16:20 2014
 
-@author: Kyle Goyette
+@author: Eusebio OLG
 """
 
 import config, init, numpy
