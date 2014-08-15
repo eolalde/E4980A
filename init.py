@@ -2,7 +2,7 @@
 """
 Created on Thu Aug 07 11:47:39 2014
 
-@author: Kyle Goyette
+@author: Eusebio OLG
 """
 
 import visa

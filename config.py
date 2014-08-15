@@ -2,7 +2,7 @@
 """
 Created on Fri Aug 08 15:10:30 2014
 
-@author: Kyle Goyette
+@author: Eusebio OLG
 """
 
 def element_singlefreq(LCR,freq,level,acl,m_p):
