@@ -7,7 +7,10 @@ import datetime
 class Project(models.Model):
     title = models.CharField(max_length=50)
     date_created = models.DateField('Project Created on')
+<<<<<<< HEAD
     status = models.CharField(max_length=30)
+=======
+>>>>>>> f2e113afd8d01882e44ee2d643412ac7cc7efad7
     comments = models.CharField(max_length=1000, blank=True)
     def __unicode__(self):
         return self.title

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -12,3 +13,8 @@ class IndexView(generic.base.View):
     def get(self, request, *args, **kwargs):
         return HttpResponse('Hello LCR_GUI')
 
+=======
+from django.shortcuts import render
+
+# Create your views here.
+>>>>>>> f2e113afd8d01882e44ee2d643412ac7cc7efad7
