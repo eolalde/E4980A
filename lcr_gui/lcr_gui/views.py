@@ -7,8 +7,9 @@ from dut.models import Project, Dut, MeasurementSetup, Results
 
 # Create your views here.
 
-class HomePageView(generic.base.View):
+class HomePageView(generic.TemplateView):
     
-    def get(self, request, *args, **kwargs):
-        return HttpResponse('HOME PAGE')
+    template_name = "home/base_home.html"
+#    def get(self, request, *args, **kwargs):
+#        return HttpResponse('HOME PAGE')
 

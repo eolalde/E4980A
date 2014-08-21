@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang = "en-us">
+
+	<head><title>{% block title %}PageTitle{% endblock %}</title></head>
+	
+	{% load staticfiles %}
+	
+	<body><div>
+		<p align="center">
+		<table align="left" border="5" width="100%" cellpadding="15">
+			<tr>
+				<td align="center">
+					<img src="{% static "img/tcx/logo.jpg" %}" alt="logo" width='250' align="top" />
+					<h2 style="font-family:Sans-serif" align="center">Impedance Measurement System</h2>
+				</td>
+				<td align="center">
+					<h3>{% block section_title %}{% endblock %}</h3>
+				</td>
+			</tr>
+		</table>
+		</p></div>
+		
+		<div style='height:35; background-color:none'></div>
+		
+		{% block body %}
+		
+		{% endblock %}
+		<!--table>
+			<thead>
+				<th></th>
+			</thead>
+		</table-->
+	
+	</body>
+
+</html>
