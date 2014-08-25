@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang = "en-us">
-
-	<head><title>{% block title %}PageTitle{% endblock %}</title></head>
 	
 	{% load staticfiles %}
 	
-	<body><div>
-		<p align="center">
-		<table align="left" border="5" width="100%" cellpadding="15">
-			<tr>
-				<td align="center">
-					<img src="{% static "img/tcx/logo.jpg" %}" alt="logo" width='250' align="top" />
-					<h2 style="font-family:Sans-serif" align="center">Impedance Measurement System</h2>
-				</td>
-				<td align="center">
-					<h3>{% block section_title %}{% endblock %}</h3>
-				</td>
-			</tr>
-		</table>
-		</p></div>
+	<head>
+		<title>{% block title %}PageTitle"HOME"{% endblock %}</title>
+		<link type="text/css" rel="stylesheet" href="{% static "css/ss_base.css " %}"/>
+	</head>
+	
+	
+	
+	<body>
+		<div id="top_bar">
+			<table width="100%">
+				<tr>
+					<td width="80%">
+						<img src="{% static "img/tcx/logo.jpg " %}" alt="logo" width="250" align="top" />
+						<h2>Impedance Measurement System</h2>
+					</td>
+					<td>
+						<h3>{% block section_title %}{% endblock %}</h3>
+					</td>
+				</tr>
+			</table>
+		</div>
 		
 		<div style='height:35; background-color:none'></div>
 		
