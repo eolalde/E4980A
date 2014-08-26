@@ -13,17 +13,30 @@ class Project(models.Model):
         return self.title
     
 class Dut(models.Model):
+
+    DUT_TYPE_CHOICES = (
+        ('Prot', 'Prototype'),
+        ('Prod', 'Product'),
+        ('Comp', 'Component'),    
+    )    
+    
     project = models.ForeignKey(Project)
-    dut_type = models.CharField(max_length=50)
+    dut_type = models.CharField(max_length=4, choices=DUT_TYPE_CHOICES)
     name = models.CharField(max_length=80)
-    sn = models.SlugField(max_length=20)
+    sn = models.SlugField(max_length=20, unique=True)
     def __unicode__(self):
         return self.dut_type
         
 class MeasurementSetup(models.Model):
+    
+    FREQ_MODE_CHOICES = (
+        ('SF', 'Single Frequency'),
+        ('MF', 'Frequency Sweep'),    
+    )    
+    
     dut = models.ForeignKey(Dut)
     measured_param = models.CharField(max_length=3)
-    freq_mode = models.CharField(max_length=10)
+    freq_mode = models.CharField(max_length=2, choices=FREQ_MODE_CHOICES)
     freq_single = models.FloatField()
     freq_lowlim = models.FloatField()
     freq_upplim = models.FloatField()
