@@ -8,6 +8,6 @@ from lcr_gui import views
 urlpatterns = patterns('',
     
     url(r'^$', views.HomePageView.as_view(), name='home'),
-    url(r'^dut/', include('dut.urls')),
+    url(r'^dut/', include('dut.urls', namespace='dut')),
     url(r'^admin/', include(admin.site.urls)),
 )

@@ -25,6 +25,7 @@
         </div>
         {% if user.is_active and user.is_staff %}
         <div id="user-tools">
+			<a href="/" style="margin:30px">Go HOME</a>
             {% trans 'Welcome,' %}
             <strong>{% firstof user.get_short_name user.get_username %}</strong>.
             {% block userlinks %}

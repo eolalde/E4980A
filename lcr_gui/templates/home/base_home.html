@@ -1,28 +1,13 @@
 {% extends "home/base.html" %}
 
+	{% block title %}HOME{% endblock %}
 	{% block section_title %}HOME{% endblock %}
 	
 	{% block body %}
-		<table align='center' border='2' rules='all' cellpadding=10>
-			<thead>
-				<th colspan='2' align='center'>
-					<h3 style="font-family:Sans-serif">Sections</h3>
-				</th>
-			</thead>
-			<tbody>
-				<tr>
-					<td align='center'>
-						Run Test
-					</td>
-					<td align='center' width='50%' height=35 >
-						Test Results Archive						
-					</td>
-				</tr>
-				<tr height="14">
-					<td align="center" colspan="2" height="16">
-						<span style="font-size:12;color:gray">Admin</span>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<a class="hlink" href="{% url 'dut:index' %}"><div id="home_button">
+			<h3>Run Test</h3>
+		</div></a><br></br>
+		<a class="hlink" href="{% url 'dut:results' %}"><div id="home_button">
+			<h3>Results Log</h3>
+		</div></a>
 	{% endblock %}

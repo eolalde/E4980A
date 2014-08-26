@@ -7,9 +7,11 @@ from dut.models import Project, Dut, MeasurementSetup, Results
 
 # Create your views here.
 
-class IndexView(generic.base.View):
+class IndexView(generic.TemplateView):
     
-    def get(self, request, *args, **kwargs):
-        return HttpResponse('Hello LCR_GUI')
-
+    template_name = "dut/test_index.html"
+    
+class ResultsView(generic.TemplateView):
+    
+    template_name = "dut/test_results.html"
 

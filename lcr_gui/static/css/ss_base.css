@@ -11,16 +11,75 @@ body {
 	background-color:#dce7f5;
 }
 	
-#top_bar {
-	width:100%;
+#top {
+	width:99%;
 	height:10%;
-	margin:auto; margin-top:0; margin-bottom:20;
+	margin:0px 0px 10px 0px;
 	background-color:white;
+	text-align:center;
+	border:5px groove #426ca4;
+	border-radius:10px;
+}
+
+#top_table {
+	width:100%;
+	 
+}
+
+#main_area {
+	width:100%; height:100%;
+	background-color:inherit;
+	display:flex;
+	flex-flow:row wrap; 
+	align-content:center;
+}
+
+#top_bar {
+	width:inherit; height:50px;
+	background-color:white;
+	margin:0px 0px 10px 0px;
+	border: 5px groove #426ca4;
+	border-radius:10px;
+	padding:0px 10px;
+	display:flex;
+	flex-flow:column wrap; 
+	align-items:center;
+}
+
+#top_button {
+	width:auto; height:auto;
+	background-color:#5388ce;
+	margin:5px 0px;
+	padding:5px 20px;
+	border: 2px groove #4a7ab9;
+	border-radius:5px;
+	display:flex;
+	align-self:center;
+	text-align:center;
+	font-size:20px; font-weight:650;
+}
+
+#body_area {
+	width:auto; height:auto;
+	background-color:white;
+	margin:0px auto; padding:10px;
+	border:5px groove #426ca4;
+	border-radius:10px;
+}
+
+#home_button {
+	width:150px; heigth:50px;
+	background-color:#ce4c1d;
+	margin:0px; padding:8px;
+	border:3px groove #88ce53;
+	border-radius:5px;
 	text-align:center;
 }
 
-.white_bg {
-	background-color:#000000;
+.hlink {
+	text-decoration:none;
+	margin:0px 0px;
+	color:white;
 }
 
 h2 {
@@ -28,3 +87,10 @@ h2 {
 	font-family:Verdana, sans-serif;
 	font-size:1.5em;
 }
+
+a:hover {
+	text-decoration:underline;
+	font-style:italic;
+	color:inherit;
+}
+
