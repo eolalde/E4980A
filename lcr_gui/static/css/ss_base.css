@@ -67,10 +67,36 @@ body {
 	border-radius:10px;
 }
 
+#body_subarea {
+	width:auto; height:auto;
+	margin:10px auto; padding:10px;
+}
+
+.table_head {
+	font-size:17px; color:white;
+	background-color:#5388ce;
+	border:3px solid #426ca4; border-radius:5px;
+	padding:5px; margin:10px auto;
+	
+}
+
+.columnhead {
+	font-size:15px; font-weight:bold;
+	text-align:center;
+	background-color:#dce7f5;
+	padding:5px; margin:5px 0px;
+	border-radius:5px;
+}
+
+.tdf {
+	text-align:right;
+	padding:6px;
+}
+
 #home_button {
 	width:150px; heigth:50px;
 	background-color:#ce4c1d;
-	margin:0px; padding:8px;
+	margin:0px auto; padding:8px;
 	border:3px groove #88ce53;
 	border-radius:5px;
 	text-align:center;
@@ -80,6 +106,14 @@ body {
 	text-decoration:none;
 	margin:0px 0px;
 	color:white;
+}
+
+.hlinkt {
+	text-decoration:underline;
+	margin:0px 0px;
+	color:#696969;
+	font-family:Verdana, sans-serif;
+	font-size:1em; font-weight:bold;
 }
 
 h2 {

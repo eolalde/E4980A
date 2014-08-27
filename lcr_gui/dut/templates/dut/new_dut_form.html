@@ -1,0 +1,11 @@
+{% extends "home/base.html" %}
+
+	{% block title %}New DUT{% endblock %}
+	{% block section_title %}TEST | New DUT{% endblock %}
+
+	{% block body %}
+		<form action="/dut/newdut/" method="post">{% csrf_token %}
+			{{ newdutform.as_p }}
+			<p align="center"><input type="submit" value="Submit" /></p>
+		</form>
+	{% endblock body %}

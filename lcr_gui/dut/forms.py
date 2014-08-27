@@ -16,12 +16,12 @@ from dut import models
 #                  
 
 class NewDutForm(forms.Form):
-    project = forms.ModelMultipleChoiceField(queryset=models.Project.objects.all())
+    sn = forms.SlugField(max_length=20)
+    project = forms.ModelChoiceField(queryset=models.Project.objects.all())
+    name = forms.CharField(max_length=80, required=False) 
     dut_type = forms.CharField(max_length=20,
                                widget=forms.Select(choices=models.Dut.DUT_TYPE_CHOICES))
-    name = forms.CharField(max_length=80, required=False)
-    sn = forms.SlugField(max_length=20, unique=True)
-    
+     
 class SetupForm1(forms.Form):
     meas_function = forms.CharField(max_length=4,
                                     widget=forms.Select(choices=models.MeasurementSetup.FUNCTION_CHOICES))

@@ -1,0 +1,32 @@
+{% extends "home/base.html" %}
+
+	{% block title %}Test{% endblock %}
+	{% block section_title %}DUT | Test Setups{% endblock %}
+	
+	{% block body %}
+		<a class="hlink" href="{% url 'dut:newsetup' dut.sn %}"><div id="home_button">
+			<h3>New Test Setup</h3>
+		</div></a>	
+	
+		<div id="body_subarea">
+			<table id="list_table">
+				<thead>
+					<th class="table_head" colspan="3">Or select a Test Setup from the list:</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="columnhead">SN</td>
+						<td class="columnhead">Project</td>
+						<td class="columnhead">DUT_Type</td>
+					</tr>
+					{% for setup in dut.measurementsetup_set.all %}
+						<tr>
+							<td class="tdf">{{ setup.freq_mode }}</td>
+							<!--td class="tdf">{{ dut.project }}</td>
+							<td class="tdf">{{ dut.dut_type }}</td-->
+						</tr>
+					{% endfor %}
+					</tbody>
+			</table>
+		</div>
+	{% endblock body %}

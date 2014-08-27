@@ -4,5 +4,29 @@
 	{% block section_title %}TEST{% endblock %}
 	
 	{% block body %}
+		<a class="hlink" href="{% url 'dut:newdut' %}"><div id="home_button">
+			<h3>New DUT</h3>
+		</div></a>
 		
+		<div id="body_subarea">
+			<table id="list_table">
+				<thead>
+					<th class="table_head" colspan="3">Or select a DUT from the list:</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="columnhead">SN</td>
+						<td class="columnhead">Project</td>
+						<td class="columnhead">DUT_Type</td>
+					</tr>
+					{% for dut in dut_list %}
+						<tr>
+							<td class="tdf"><a class="hlinkt" href="{% url 'dut:detail' dut.sn %}">{{ dut.sn }}</a></td>
+							<td class="tdf">{{ dut.project }}</td>
+							<td class="tdf">{{ dut.dut_type }}</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+			</table>
+		</div>
 	{% endblock body %}

@@ -15,8 +15,8 @@ class Project(models.Model):
 class Dut(models.Model):
 
     DUT_TYPE_CHOICES = (
-        ('Prot', 'Prototype'),
         ('Prod', 'Product'),
+        ('Prot', 'Prototype'),
         ('Comp', 'Component'),
         ('Othe', 'Other'),    
     )    
@@ -26,7 +26,7 @@ class Dut(models.Model):
     name = models.CharField(max_length=80)
     sn = models.SlugField(max_length=20, unique=True, primary_key=True)
     def __unicode__(self):
-        return self.dut_type
+        return self.sn
         
         
 class MeasurementSetup(models.Model):
