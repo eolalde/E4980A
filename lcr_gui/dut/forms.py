@@ -27,18 +27,18 @@ class SetupForm1(forms.Form):
                                     widget=forms.Select(choices=models.MeasurementSetup.FUNCTION_CHOICES))
     freq_mode = forms.CharField(max_length=4,
                                 widget=forms.Select(choices=models.MeasurementSetup.FREQ_MODE_CHOICES))
-    dut_nature = forms.CharField(max_length=1,
-                                 widget=forms.Select(choices=models.Results.DUT_NAT_CHOICES))
+#    dut_nature = forms.CharField(max_length=1,
+#                                 widget=forms.Select(choices=models.Results.DUT_NAT_CHOICES))
     
-    freq_single = forms.IntegerField(max_value=300000, min_value=20)
-    freq_lowlim = forms.IntegerField(max_value=290000, min_value=20)
-    freq_upplim = forms.IntegerField(max_value=300000, min_value=50)
-
-    bandsize = forms.IntegerField(max_value=201, min_value=2)
-    
-    acl = forms.BooleanField(required=False, initial=False)
-    level_volt = forms.FloatField(max_value=20.0, min_value=0.1)
-    level_amp = forms.FloatField(max_value=200.0, min_value=0.1)
+#    freq_single = forms.IntegerField(max_value=300000, min_value=20)
+#    freq_lowlim = forms.IntegerField(max_value=290000, min_value=20)
+#    freq_upplim = forms.IntegerField(max_value=300000, min_value=50)
+#
+#    bandsize = forms.IntegerField(max_value=201, min_value=2)
+#    
+#    acl = forms.BooleanField(required=False, initial=False)
+#    level_volt = forms.FloatField(max_value=20.0, min_value=0.1)
+#    level_amp = forms.FloatField(max_value=200.0, min_value=0.1)
     
     
     

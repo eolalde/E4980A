@@ -19,7 +19,7 @@
 						<td class="columnhead">Project</td>
 						<td class="columnhead">DUT_Type</td>
 					</tr>
-					{% for setup in dut.measurementsetup_set.all %}
+					{% for setup in test_setups %}
 						<tr>
 							<td class="tdf">{{ setup.freq_mode }}</td>
 							<!--td class="tdf">{{ dut.project }}</td>

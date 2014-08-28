@@ -1,0 +1,12 @@
+{% extends "home/base.html" %}
+
+	{% block title %}New Setup{% endblock %}
+	{% block section_title %}DUT | Test NEW{% endblock %}
+
+	{% block body %}
+		<form action="/dut/{{ dut.sn }}/newsetup/" method="post">{% csrf_token %}
+			{{ newsetupform.as_p }}
+			<p align="center"><input type="submit" value="Submit" /></p>
+			
+		</form>
+	{% endblock body %}

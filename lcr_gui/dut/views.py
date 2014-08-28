@@ -12,6 +12,29 @@ class IndexView(generic.ListView):
     context_object_name = "dut_list"
     template_name = "dut/test_index.html"
 
+
+class DutDetailView(generic.ListView):
+    
+#    model = Dut
+    context_object_name = "test_setups"
+    template_name = "dut/dut_detail.html"
+    
+    def get_queryset(self):
+        self.dut = Dut.objects.get(pk=self.args[0])
+        return MeasurementSetup.objects.filter(dut=self.dut)
+    
+    def get_context_data(self, **kwargs):
+        context = super(DutDetailView, self).get_context_data(**kwargs)
+        context['dut'] = self.dut
+        return context
+    
+class ResultsView(generic.TemplateView):
+    
+    template_name = "dut/test_results.html"
+    
+
+
+
 def newdut(request):
     f = open('logger', 'w')
     
@@ -33,21 +56,22 @@ def newdut(request):
     return render(request, 'dut/new_dut_form.html', {
            'newdutform': newdutform,
            })
-
-class DutDetailView(generic.DetailView):
+           
+def newsetup(request, dut_sn):
+    dut = Dut.objects.get(pk=dut_sn)
+    if request.method == 'POST':
+        newsetupform = SetupForm1(request.POST)
+        if newsetupform.is_valid():
+            setup = MeasurementSetup()
+            setup.dut = dut
+            setup.meas_function = newsetupform.cleaned_data['meas_function']
+            setup.freq_mode = newsetupform.cleaned_data['freq_mode']
+            setup.save()
+            return HttpResponseRedirect('/dut/%s/' %dut_sn)
+    else:
+        newsetupform = SetupForm1()
     
-    model = Dut
-#    context_object_name = "dut_tests"
-    template_name = "dut/dut_detail.html"
-    
-#    def get_context_data(self, **kwargs):
-#        context = super(DutDetailView, self).get_context_data(**kwargs)
-#        context['tsetups_list'] = MeasurementSetup.objects.all()
-#        return context
-    
-class ResultsView(generic.TemplateView):
-    
-    template_name = "dut/test_results.html"
-    
-
-            
+    return render(request, 'dut/new_setup_form.html', {
+           'newsetupform': newsetupform,
+           'dut': dut,
+           })
