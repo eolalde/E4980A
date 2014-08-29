@@ -78,8 +78,8 @@ class MeasurementSetup(models.Model):
 class Results(models.Model):
     
     DUT_NAT_CHOICES = (
-        ('D', 'Dielectric'),
-        ('E', 'Element'),
+        ('DE', 'Dielectric'),
+        ('EL', 'Element'),
     )    
     
     dut_nat = models.CharField(max_length=1, choices=DUT_NAT_CHOICES)
