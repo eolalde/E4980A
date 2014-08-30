@@ -5,7 +5,9 @@ Created on Fri Aug 08 15:10:30 2014
 @author: Eusebio OLG
 """
 
-def element_singlefreq(LCR,freq,level,acl,m_p):
+import numpy
+
+def element_singlefreq(LCR,freq,level,acl,function):
     LCR.write('''\
     :SOUR:DCS:STAT OFF;\
     :BIAS:STAT OFF;\
@@ -64,13 +66,13 @@ def element_singlefreq(LCR,freq,level,acl,m_p):
     :FUNC:DCR:RANG:AUTO ON;\
     :FUNC:IMP:RANG:AUTO ON;\
     :OUTP:DC:ISOL:LEV:AUTO ON;\
-    :DISP:PAGE MEASurement;''' %(acl, level/1000.0 ,freq, m_p))
+    :DISP:PAGE MEASurement;''' %(acl, level/1000.0 ,freq, function))
 
     return LCR
 
 
     
-def dielectric_singlefreq(LCR,freq,level,acl,m_p):
+def dielectric_singlefreq(LCR,freq,level,acl,function):
     LCR.write(''':SOUR:DCS:STAT OFF;\
     :BIAS:STAT OFF;\
     :COMP:BIN:COUN:CLE;\
@@ -128,12 +130,24 @@ def dielectric_singlefreq(LCR,freq,level,acl,m_p):
     :FUNC:DCR:RANG:AUTO ON;\
     :FUNC:IMP:RANG:AUTO ON;\
     :OUTP:DC:ISOL:LEV:AUTO ON;\
-    :DISP:PAGE MEASurement;''' %(acl, freq, m_p, level))
+    :DISP:PAGE MEASurement;''' %(acl, freq, function, level))
 
     return LCR
     
 
-def element_freqsweep(LCR,lowlim,uplim,bandsize,level,acl,freqstr,m_p):
+def element_freqsweep(LCR,lowlim,uplim,bandsize,level,acl,function):
+    
+    j = 1
+    freqstr = ' '
+    sweepfreq = []
+    freqlist = numpy.linspace(lowlim,uplim,bandsize)
+    for j,i in enumerate(freqlist):
+        if j < (bandsize-1):
+            freqstr = freqstr + str(i) + ','
+        else:
+            freqstr = freqstr + str(i)
+        sweepfreq.append(freqlist[j])
+    
     LCR.write('''\
     :DISP:CCL;\
     :SOUR:DCS:STAT OFF;\
@@ -191,15 +205,27 @@ def element_freqsweep(LCR,lowlim,uplim,bandsize,level,acl,freqstr,m_p):
     :FUNC:DCR:RANG:AUTO ON;\
     :FUNC:IMP:RANG:AUTO ON;\
     :OUTP:DC:ISOL:LEV:AUTO ON;\
-    :DISP:PAGE list;''' %(acl, level/1000.0, m_p))
+    :DISP:PAGE list;''' %(acl, level/1000.0, function))
     
     
     LCR.write(':list:freq%s;' %freqstr)
     
-    return LCR
+    return LCR, sweepfreq
     
 
-def dielectric_freqsweep(LCR,lowlim,uplim,bandsize,level,acl,freqstr,m_p):
+def dielectric_freqsweep(LCR,lowlim,uplim,bandsize,level,acl,function):
+    
+    j = 1
+    freqstr = ' '
+    sweepfreq = []
+    freqlist = numpy.linspace(lowlim,uplim,bandsize)
+    for j,i in enumerate(freqlist):
+        if j < (bandsize-1):
+            freqstr = freqstr + str(i) + ','
+        else:
+            freqstr = freqstr + str(i)
+        sweepfreq.append(freqlist[j])
+    
     LCR.write('''\
     :DISP:CCL;\
     :SOUR:DCS:STAT OFF;\
@@ -257,11 +283,11 @@ def dielectric_freqsweep(LCR,lowlim,uplim,bandsize,level,acl,freqstr,m_p):
     :FUNC:DCR:RANG:AUTO ON;\
     :FUNC:IMP:RANG:AUTO ON;\
     :OUTP:DC:ISOL:LEV:AUTO ON;\
-    :DISP:PAGE LIST;''' %(acl, level, m_p))
+    :DISP:PAGE LIST;''' %(acl, level, function))
     
     
     LCR.write(':list:freq%s;' %freqstr)
     
-    return LCR
+    return LCR, sweepfreq
 
 #:VOLT:LEV 10;\

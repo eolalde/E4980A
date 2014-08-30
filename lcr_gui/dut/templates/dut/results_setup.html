@@ -1,0 +1,65 @@
+{% extends "home/base.html" %}
+
+	{% block title %}Test{% endblock %}
+	{% block section_title %}DUT | Test Setups{% endblock %}
+	
+	{% block body %}
+		<div id="body_subarea">
+			<table id="list_table">
+				<thead>
+					<th class="table_head" colspan="6">Setup parameters:</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="columnhead">Function</td>
+						<td class="columnhead">Freq Mode</td>
+						<td class="columnhead">Freq (Hz)<br> [sweep steps]</td>
+						<td class="columnhead">ACL</td>
+						<td class="columnhead">Level (V)</td>
+						<td class="columnhead">Level (mA)</td>
+					</tr>
+					<tr>
+						<td class="tdf">{{ setup.meas_function }}</td>
+						<td class="tdf">{{ setup.freq_mode }}</td>
+						<td class="tdf">
+							<!--a class="hlinkt" href="{% url 'dut:results_test_setup' dut.sn setup.id %}"-->
+							{% if setup.freq_mode == 'SF' %}
+								{{ setup.freq_single }} [Single]
+							{% elif setup.freq_mode == 'MF' %}
+								({{ setup.freq_lowlim }} - {{ setup.freq_upplim }}) [{{ setup.bandsize }}]
+							{% endif %}
+							<!--/a-->
+						</td>
+						<td class="tdf">
+							{% if setup.acl %}
+								ON
+							{% else %}
+								OFF
+							{% endif %}
+						</td>
+						<td class="tdf">{{ setup.level_volt }}</td>
+						<td class="tdf">{{ setup.level_amp }}</td>
+					</tr>
+						
+				</tbody>
+			</table>
+		</div>
+		
+		<div id="body_subarea">
+			<table id="list_table">
+				<thead>
+					<th class="table_head" colspan="6">Tests done on DUT with these setup parameters:</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="columnhead">Nature of DUT</td>
+						<td class="columnhead">Test Timestamp</td>
+					</tr>
+					<tr>
+						{% for results in test_list %}
+						<td class="tdf">{{ results.dut_nat }}</td>
+						<td class="tdf"><a class="hlinkt" href="{% url 'dut:test_results' dut.sn setup.id results.id %}">{{ results.date_tested }}</a></td>
+						{% endfor %}
+					</tr>
+		</div>
+	{% endblock body %}

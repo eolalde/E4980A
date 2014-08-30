@@ -4,14 +4,10 @@
 	{% block section_title %}DUT | Test Setups{% endblock %}
 	
 	{% block body %}
-		<a class="hlink" href="{% url 'dut:newsetup' dut.sn %}"><div id="home_button">
-			<h3>New Test Setup</h3>
-		</div></a>	
-	
 		<div id="body_subarea">
 			<table id="list_table">
 				<thead>
-					<th class="table_head" colspan="6">Or select a Test Setup from the list:</th>
+					<th class="table_head" colspan="6">Select a Test Setup from the list:</th>
 				</thead>
 				<tbody>
 					<tr>
@@ -27,7 +23,7 @@
 							<td class="tdf">{{ setup.meas_function }}</td>
 							<td class="tdf">{{ setup.freq_mode }}</td>
 							<td class="tdf">
-								<a class="hlinkt" href="{% url 'dut:dut_setup_tests' dut.sn setup.id %}">
+								<a class="hlinkt" href="{% url 'dut:results_test_setup' dut.sn setup.id %}">
 								{% if setup.freq_mode == 'SF' %}
 									{{ setup.freq_single }} [Single]
 								{% elif setup.freq_mode == 'MF' %}

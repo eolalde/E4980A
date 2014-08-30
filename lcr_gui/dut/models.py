@@ -62,7 +62,7 @@ class MeasurementSetup(models.Model):
     
     dut = models.ForeignKey(Dut)
     meas_function = models.CharField(max_length=4, choices=FUNCTION_CHOICES, default='RX')
-    freq_mode = models.CharField(max_length=2, choices=FREQ_MODE_CHOICES)
+    freq_mode = models.CharField(max_length=2, choices=FREQ_MODE_CHOICES, default='SF')
     freq_single = models.FloatField(default=60.0)
     freq_lowlim = models.FloatField(default=20.0)
     freq_upplim = models.FloatField(default=1000.0)
@@ -75,19 +75,25 @@ class MeasurementSetup(models.Model):
         
 
 
-class Results(models.Model):
+class Tests(models.Model):
     
     DUT_NAT_CHOICES = (
         ('DE', 'Dielectric'),
         ('EL', 'Element'),
     )    
     
-    dut_nat = models.CharField(max_length=1, choices=DUT_NAT_CHOICES)
+    dut_nat = models.CharField(max_length=2, choices=DUT_NAT_CHOICES, default='DE')
     meas_setup = models.ForeignKey(MeasurementSetup)
+    date_tested = models.DateTimeField('Tested on')
+    def __unicode__(self):
+        return self
+        
+class Results(models.Model):
+    test = models.ForeignKey(Tests)
     freq = models.FloatField()
     param_1 = models.FloatField()
     param_2 = models.FloatField()
     meas_stat = models.FloatField()
-    date_tested = models.DateTimeField('Tested on')
+    
     def __unicode__(self):
         return self
