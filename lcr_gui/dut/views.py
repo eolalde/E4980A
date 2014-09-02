@@ -218,7 +218,7 @@ def runtest(request, dut_sn, setup_id, test_id):
             config.element_singlefreq(LCR, setup.freq_single, setup.level_amp, setup.acl, setup.meas_function)
             measurement = lcr_measure.run_single(LCR, 5, setup.freq_single)
         else:
-            LCR, sweepfreq = config.dielectric_freqsweep(LCR, setup.freq_lowlim, setup.freq_upplim, setup.bandsize, setup.level_amp, setup.acl, setup.meas_function)
+            LCR, sweepfreq = config.element_freqsweep(LCR, setup.freq_lowlim, setup.freq_upplim, setup.bandsize, setup.level_amp, setup.acl, setup.meas_function)
             measurement = lcr_measure.run_sweep(LCR, setup.bandsize, sweepfreq)
     
     f = open('logger', 'w')
