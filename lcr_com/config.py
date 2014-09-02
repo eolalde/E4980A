@@ -289,5 +289,3 @@ def dielectric_freqsweep(LCR,lowlim,uplim,bandsize,level,acl,function):
     LCR.write(':list:freq%s;' %freqstr)
     
     return LCR, sweepfreq
-
-#:VOLT:LEV 10;\

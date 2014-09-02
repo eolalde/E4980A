@@ -27,7 +27,7 @@
 							<td class="tdf">{{ setup.meas_function }}</td>
 							<td class="tdf">{{ setup.freq_mode }}</td>
 							<td class="tdf">
-								<a class="hlinkt" href="{% url 'dut:dut_setup_tests' dut.sn setup.id %}">
+								<a class="hlinkt" href="{% url 'dut:test_setup' dut.sn setup.id %}">
 								{% if setup.freq_mode == 'SF' %}
 									{{ setup.freq_single }} [Single]
 								{% elif setup.freq_mode == 'MF' %}

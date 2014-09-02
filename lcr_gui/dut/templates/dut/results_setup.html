@@ -57,8 +57,10 @@
 					</tr>
 					<tr>
 						{% for results in test_list %}
-						<td class="tdf">{{ results.dut_nat }}</td>
-						<td class="tdf"><a class="hlinkt" href="{% url 'dut:test_results' dut.sn setup.id results.id %}">{{ results.date_tested }}</a></td>
+						<tr>
+							<td class="tdf">{{ results.dut_nat }}</td>
+							<td class="tdf"><a class="hlinkt" href="{% url 'dut:test_results' dut.sn setup.id results.id %}">{{ results.date_tested }}</a></td>
+						</tr>
 						{% endfor %}
 					</tr>
 		</div>

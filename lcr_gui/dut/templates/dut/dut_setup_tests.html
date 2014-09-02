@@ -26,13 +26,13 @@
 						<td class="tdf">{{ setup.meas_function }}</td>
 						<td class="tdf">{{ setup.freq_mode }}</td>
 						<td class="tdf">
-							<!--a class="hlinkt" href="{% url 'dut:results_test_setup' dut.sn setup.id %}"-->
+							
 							{% if setup.freq_mode == 'SF' %}
 								{{ setup.freq_single }} [Single]
 							{% elif setup.freq_mode == 'MF' %}
 								({{ setup.freq_lowlim }} - {{ setup.freq_upplim }}) [{{ setup.bandsize }}]
 							{% endif %}
-							<!--/a-->
+							
 						</td>
 						<td class="tdf">
 							{% if setup.acl %}

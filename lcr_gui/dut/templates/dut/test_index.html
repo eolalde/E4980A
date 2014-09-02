@@ -21,7 +21,7 @@
 					</tr>
 					{% for dut in dut_list %}
 						<tr>
-							<td class="tdf"><a class="hlinkt" href="{% url 'dut:detail' dut.sn %}">{{ dut.sn }}</a></td>
+							<td class="tdf"><a class="hlinkt" href="{% url 'dut:test_dut' dut.sn %}">{{ dut.sn }}</a></td>
 							<td class="tdf">{{ dut.project }}</td>
 							<td class="tdf">{{ dut.dut_type }}</td>
 						</tr>

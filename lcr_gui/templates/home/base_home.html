@@ -4,10 +4,10 @@
 	{% block section_title %}HOME{% endblock %}
 	
 	{% block body %}
-		<a class="hlink" href="{% url 'dut:index' %}"><div id="home_button">
+		<a class="hlink" href="{% url 'dut:test_index' %}"><div id="home_button">
 			<h3>Test</h3>
 		</div></a><br></br>
-		<a class="hlink" href="{% url 'dut:results' %}"><div id="home_button">
+		<a class="hlink" href="{% url 'dut:results_index' %}"><div id="home_button">
 			<h3>Results Log</h3>
 		</div></a>
 	{% endblock %}

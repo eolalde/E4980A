@@ -15,13 +15,13 @@ class HomePageView(generic.TemplateView):
     
     template_name = "home/base_home.html"
 
-class IndexView(generic.ListView):
+class TestIndexView(generic.ListView):
     model = Dut
     context_object_name = "dut_list"
     template_name = "dut/test_index.html"
 
 
-class DutDetailView(generic.ListView):
+class TestDutView(generic.ListView):
     
 #    model = Dut
     context_object_name = "test_setups"
@@ -32,11 +32,11 @@ class DutDetailView(generic.ListView):
         return MeasurementSetup.objects.filter(dut=self.dut)
     
     def get_context_data(self, **kwargs):
-        context = super(DutDetailView, self).get_context_data(**kwargs)
+        context = super(TestDutView, self).get_context_data(**kwargs)
         context['dut'] = self.dut
         return context
         
-class DutTestsView(generic.ListView):
+class TestSetupView(generic.ListView):
     context_object_name = "tests"
     template_name = "dut/dut_setup_tests.html"
     
@@ -46,16 +46,16 @@ class DutTestsView(generic.ListView):
         return Tests.objects.filter(meas_setup=self.setup)
     
     def get_context_data(self, **kwargs):
-        context = super(DutTestsView, self).get_context_data(**kwargs)
+        context = super(TestSetupView, self).get_context_data(**kwargs)
         context['dut'] = self.dut
         context['setup'] = self.setup
         return context
     
-class ResultsView(generic.ListView):
+class ResultsIndexView(generic.ListView):
     
-    model = Results
-    context_object_name = "results_list"
-    template_name = "dut/test_results.html"
+    model = Dut
+    context_object_name = "dut_list"
+    template_name = "dut/results_index.html"
     
 class ResultsDutView(generic.ListView):
     
@@ -90,8 +90,22 @@ class ResultsSetupView(generic.ListView):
         return context
 
 class TestResultsView(generic.ListView):
-    model = Results
+
     template_name = "dut/test_results.html"
+    context_object_name = "results"
+    
+    def get_queryset(self):
+        self.dut = Dut.objects.get(pk=self.args[0])
+        self.setup = MeasurementSetup.objects.get(pk=self.args[1])
+        self.test = Tests.objects.get(pk=self.args[2])
+        return Results.objects.filter(test=self.test)
+    
+    def get_context_data(self, **kwargs):
+        context = super(TestResultsView, self).get_context_data(**kwargs)
+        context['dut'] = self.dut
+        context['setup'] = self.setup
+        context['test'] = self.test
+        return context
 
 def newdut(request):
     f = open('logger', 'w')
@@ -179,13 +193,13 @@ def newtest(request, dut_sn, setup_id):
     
     
 
-def runtest(request, dut_sn, setup_id, results_id):
-    sys.path.append('C:\\Users\\Chevolink\\Documents\\TCX\\E4980A RMT-CTRL\\lcr_com\\')
+def runtest(request, dut_sn, setup_id, test_id):
+    #sys.path.append('C:\\Users\\Chevolink\\Documents\\TCX\\E4980A RMT-CTRL\\lcr_com\\')
     import init, config, lcr_measure
     
     dut = Dut.objects.get(sn=dut_sn)
     setup = MeasurementSetup.objects.get(pk=setup_id)
-    test = Tests.objects.get(pk=results_id)
+    test = Tests.objects.get(pk=test_id)
     
     try:
         LCR = init.connect2inst(5)
@@ -195,23 +209,40 @@ def runtest(request, dut_sn, setup_id, results_id):
     if test.dut_nat == 'DE':
         if setup.freq_mode == 'SF':
             config.dielectric_singlefreq(LCR, setup.freq_single, setup.level_volt, setup.acl, setup.meas_function)
-            measurement = lcr_measure.run_single(LCR, 5)
+            measurement = lcr_measure.run_single(LCR, 5, setup.freq_single)
         else:
             LCR, sweepfreq = config.dielectric_freqsweep(LCR, setup.freq_lowlim, setup.freq_upplim, setup.bandsize, setup.level_volt, setup.acl, setup.meas_function)
             measurement = lcr_measure.run_sweep(LCR, setup.bandsize, sweepfreq)
     else:
         if setup.freq_mode == 'SF':
             config.element_singlefreq(LCR, setup.freq_single, setup.level_amp, setup.acl, setup.meas_function)
-            measurement = lcr_measure.run_single(LCR, 5)
+            measurement = lcr_measure.run_single(LCR, 5, setup.freq_single)
         else:
             LCR, sweepfreq = config.dielectric_freqsweep(LCR, setup.freq_lowlim, setup.freq_upplim, setup.bandsize, setup.level_amp, setup.acl, setup.meas_function)
             measurement = lcr_measure.run_sweep(LCR, setup.bandsize, sweepfreq)
     
     f = open('logger', 'w')
+    f.write(str(measurement))
+    
     for h in measurement:
+        res = Results()
+        res.test = test
+        res.freq = h[0]
+        #f.write(str(h[0]))
+        res.param_1 = h[1]
+        #f.write(str(h[1]))
+        res.param_2 = h[2]
+        #f.write(str(h[2]))
+        res.meas_stat = h[3]
+        res.save()
+        f.write(str(res.id))
         f.write(str(h))
+            
+    results = Results.objects.filter(test=test)
+    
+            
     return render(request, 'dut/test_results.html', {
-                'measurement': measurement,
+                'results': results,
                 'dut': dut,
                 'setup': setup,
                 'test': test,
