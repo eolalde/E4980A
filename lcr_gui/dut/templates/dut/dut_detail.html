@@ -7,7 +7,11 @@
 		<a class="hlink" href="{% url 'dut:newsetup' dut.sn %}"><div id="home_button">
 			<h3>New Test Setup</h3>
 		</div></a>	
-	
+		<table id="list_table">
+				<thead>
+					<th class="table_head" colspan="1" align="center"><a class="hlink" href="{% url 'dut:test_dut' dut.sn %}">{{ dut.sn }}</a></th>
+				</thead>
+		</table>
 		<div id="body_subarea">
 			<table id="list_table">
 				<thead>

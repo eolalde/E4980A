@@ -69,6 +69,9 @@ body {
 	margin:0px auto; padding:10px;
 	border:5px groove #426ca4;
 	border-radius:10px;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
 }
 
 #body_subarea {
@@ -101,6 +104,15 @@ body {
 	width:150px; heigth:50px;
 	background-color:#ce4c1d;
 	margin:0px auto; padding:8px;
+	border:3px groove #88ce53;
+	border-radius:5px;
+	text-align:center;
+}
+
+#test_button {
+	width:150px; heigth:50px;
+	background-color:#ce4c1d;
+	margin:0px; padding:8px;
 	border:3px groove #88ce53;
 	border-radius:5px;
 	text-align:center;
