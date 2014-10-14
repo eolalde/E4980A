@@ -5,7 +5,7 @@
 	
 	{% block body %}
 		<a class="hlink" href="{% url 'dut:newdut' %}"><div id="home_button">
-			<h3>New DUT</h3>
+			<h3>Enter SN / New Unit</h3>
 		</div></a>
 		<div id="body_subarea">
 			<table id="list_table">
@@ -18,7 +18,7 @@
 						<td class="columnhead">Project</td>
 						<td class="columnhead">DUT_Type</td>
 					</tr>
-					{% for dut in dut_list|dictsort:"sn" %}
+					{% for dut in hibachi_dut_list|dictsortreversed:"sn" %}
 						<tr>
 							<td class="tdf"><a class="hlinkt" href="{% url 'dut:test_dut' dut.sn %}">{{ dut.sn }}</a></td>
 							<td class="tdf">{{ dut.project }}</td>

@@ -1,10 +1,14 @@
 {% extends "home/base.html" %}
 
 	{% block title %}Test{% endblock %}
-	{% block section_title %}DUT | Test Setups{% endblock %}
-	
+	{% block section_title %}TEST RESULTS{% endblock %}
+
 	{% block body %}
+        <a class="hlink" href="{% url 'dut:newtest' dut.sn setup.id %}"><div id="home_button">
+			<h3>New Test</h3>
+		</div></a>
 		<div id="body_subarea">
+
 			<table id="list_table">
 				<thead>
 					<th class="table_head" colspan="1" align="center"><a class="hlink" href="{% url 'dut:test_dut' dut.sn %}">{{ dut.sn }}</a></th>
@@ -27,13 +31,13 @@
 						<td class="tdf">{{ setup.meas_function }}</td>
 						<td class="tdf">{{ setup.freq_mode }}</td>
 						<td class="tdf">
-							<!--a class="hlinkt" href="{% url 'dut:results_test_setup' dut.sn setup.id %}"-->
+
 							{% if setup.freq_mode == 'SF' %}
 								{{ setup.freq_single }} [Single]
 							{% elif setup.freq_mode == 'MF' %}
 								({{ setup.freq_lowlim }} - {{ setup.freq_upplim }}) [{{ setup.bandsize }}]
 							{% endif %}
-							<!--/a-->
+
 						</td>
 						<td class="tdf">
 							{% if setup.acl %}
@@ -45,28 +49,49 @@
 						<td class="tdf">{{ setup.level_volt }}</td>
 						<td class="tdf">{{ setup.level_amp }}</td>
 					</tr>
-						
+
 				</tbody>
 			</table>
 		</div>
-		
+
 		<div id="body_subarea">
 			<table id="list_table">
 				<thead>
-					<th class="table_head" colspan="6">Tests done on DUT with these setup parameters:</th>
+					<th class="table_head" colspan="3">Test done on DUT with the above setup parameters:</th>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="columnhead">Nature of DUT</td>
 						<td class="columnhead">Test Timestamp</td>
+						<td class="columnhead">Nature of DUT</td>
+						<td class="columnhead"> -- </td>
 					</tr>
+                    {% for test in tests %}
 					<tr>
-						{% for results in test_list %}
-						<tr>
-							<td class="tdf">{{ results.dut_nat }}</td>
-							<td class="tdf"><a class="hlinkt" href="{% url 'dut:test_results' dut.sn setup.id results.id %}">{{ results.date_tested }}</a></td>
-						</tr>
-						{% endfor %}
+						<td class="tdf">{{ test.date_tested }}</td>
+						<td class="tdf">{{ test.dut_nat }}</td>
+						<td class="tdf"><a class="hlinkt" href="{% url 'dut:ttest_results' dut.sn setup.id test.id %}">See Results</a></td>
 					</tr>
-		</div>
-	{% endblock body %}
+                    {% endfor %}
+				</tbody>
+			</table>
+			<table id="list_table">
+				<thead>
+					<th class="table_head" colspan ="4">RESULTS</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="columnhead">Frequency [Hz]</td>
+						<td class="columnhead">Primary parameter</td>
+						<td class="columnhead">Secondary parameter</td>
+						<td class="columnhead">Measurement Status</td>
+					{% for res in results %}
+					<tr>
+						<td class="tdf">{{ res.freq }}</td>
+						<td class="tdf">{{ res.param_1 }}</td>
+						<td class="tdf">{{ res.param_2 }}</td>
+						<td class="tdf">
+							{% if res.meas_stat == 0.0 %}Valid
+							{% else %}{{ res.meas_stat }}{% endif %}</td>
+					</tr>
+					{% endfor %}
+	{% endblock %}

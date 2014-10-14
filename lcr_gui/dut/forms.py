@@ -17,7 +17,7 @@ from dut import models
 
 class NewDutForm(forms.Form):
     sn = forms.SlugField(max_length=20)
-    project = forms.ModelChoiceField(queryset=models.Project.objects.all())
+    project = forms.ModelChoiceField(queryset=models.Project.objects.all(), initial='Hibachi')
     name = forms.CharField(max_length=80, required=False) 
     dut_type = forms.CharField(max_length=20,
                                widget=forms.Select(choices=models.Dut.DUT_TYPE_CHOICES))

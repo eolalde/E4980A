@@ -28,6 +28,9 @@
 				<a class="hlink" href="{% url 'dut:home' %}"><div id="top_button">
 					Home
 				</div></a>
+                <a class="hlink" href="{% url 'dut:hibachi_index' "Hibachi" %}"><div id="top_button">
+					Hibachi QC Test
+				</div></a>
 				<a class="hlink" href="{% url 'dut:test_index' %}"><div id="top_button">
 					Test
 				</div></a>
@@ -41,10 +44,15 @@
 		
 			<div id="body_area">
 				{% block body %}
-		
+
 				{% endblock %}
+                <div id="body_subdiv">
+				{% block body2 %}
+
+				{% endblock %}
+			    </div>
 			</div>
-	
+
 	</div></body>
 
 </html>

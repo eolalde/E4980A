@@ -37,9 +37,9 @@ class MeasurementSetup(models.Model):
     )
 
     FUNCTION_CHOICES = (
+        ('ZTD', 'Z-theta'),
         ('RX', 'R-X'),
         ('GB', 'G-B'),
-        ('ZTD', 'Z-theta'),
         ('YTD', 'Y-theta'),
         ('CPD', 'Cp-D'),
         ('CPQ', 'Cp-Q'),

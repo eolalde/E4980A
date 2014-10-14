@@ -15,7 +15,7 @@
 						<td class="columnhead">Project</td>
 						<td class="columnhead">DUT_Type</td>
 					</tr>
-					{% for dut in dut_list %}
+					{% for dut in dut_list|dictsort:"sn" %}
 						<tr>
 							<td class="tdf"><a class="hlinkt" href="{% url 'dut:results_dut' dut.sn %}">{{ dut.sn }}</a></td>
 							<td class="tdf">{{ dut.project }}</td>

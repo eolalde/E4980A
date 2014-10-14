@@ -62,12 +62,13 @@
 						<td class="columnhead">Nature of DUT</td>
 						<td class="columnhead"> -- </td>
 					</tr>
-
+                    {% for test in tests %}
 					<tr>
 						<td class="tdf">{{ test.date_tested }}</td>
 						<td class="tdf">{{ test.dut_nat }}</td>
 						<td class="tdf"><a class="hlinkt" href="{% url 'dut:test_results' dut.sn setup.id test.id %}">See Results</a></td>
 					</tr>
+                    {% endfor %}
 				</tbody>
 			</table>
 			<table id="list_table">

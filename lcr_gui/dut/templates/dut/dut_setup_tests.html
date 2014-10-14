@@ -69,7 +69,7 @@
 					<tr>
 						<td class="tdf">{{ test.date_tested }}</td>
 						<td class="tdf">{{ test.dut_nat }}</td>
-						<td class="tdf"><a class="hlinkt" href="{% url 'dut:test_results' dut.sn setup.id test.id %}">See Results</a></td>
+						<td class="tdf"><a class="hlinkt" href="{% url 'dut:ttest_results' dut.sn setup.id test.id %}">See Results</a></td>
 					</tr>
 					{% endfor %}
 		</div>

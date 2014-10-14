@@ -15,6 +15,18 @@ class HomePageView(generic.TemplateView):
     
     template_name = "home/base_home.html"
 
+class HibachiIndexView(generic.ListView):
+    context_object_name = "hibachi_dut_list"
+    template_name = "dut/Hibachi_Index.html"
+
+    def get_queryset(self):
+        self.project = Project.objects.get(title=self.args[0])
+        return Dut.objects.filter(project=self.project).reverse()[:20]
+    def get_context_data(self, **kwargs):
+        context = super(HibachiIndexView, self).get_context_data(**kwargs)
+        context["project"] = self.project
+        return context
+
 class TestIndexView(generic.ListView):
     model = Dut
     context_object_name = "dut_list"
@@ -104,7 +116,25 @@ class TestResultsView(generic.ListView):
         context = super(TestResultsView, self).get_context_data(**kwargs)
         context['dut'] = self.dut
         context['setup'] = self.setup
-        context['test'] = self.test
+        context['tests'] = Tests.objects.filter(meas_setup=self.setup)
+        return context
+
+class TTestResultsView(generic.ListView):
+
+    template_name = "dut/ttest_results.html"
+    context_object_name = "results"
+
+    def get_queryset(self):
+        self.dut = Dut.objects.get(pk=self.args[0])
+        self.setup = MeasurementSetup.objects.get(pk=self.args[1])
+        self.test = Tests.objects.get(pk=self.args[2])
+        return Results.objects.filter(test=self.test)
+
+    def get_context_data(self, **kwargs):
+        context = super(TTestResultsView, self).get_context_data(**kwargs)
+        context['dut'] = self.dut
+        context['setup'] = self.setup
+        context['tests'] = Tests.objects.filter(meas_setup=self.setup)
         return context
 
 def newdut(request):
@@ -121,13 +151,16 @@ def newdut(request):
             dut.name = newdutform.cleaned_data['name']
             dut.sn = newdutform.cleaned_data['sn']
             dut.save()
-            return HttpResponseRedirect('/dut/test/')
+            return HttpResponseRedirect('/dut/test/%s'%dut.sn)
     else:
         newdutform = NewDutForm()
-        
+    def get_queryset(self):
+        self.dut = Dut.objects.get(pk=self.args[0])
+        return MeasurementSetup.objects.filter(dut=self.dut)
     return render(request, 'dut/new_dut_form.html', {
            'newdutform': newdutform,
            })
+
            
 def newsetup(request, dut_sn):
     dut = Dut.objects.get(pk=dut_sn)
@@ -154,7 +187,7 @@ def newsetup(request, dut_sn):
             setup.acl = newsetupform.cleaned_data['acl']
             
             setup.save()
-            return HttpResponseRedirect('/dut/test/%s/' %dut_sn)
+            return HttpResponseRedirect('/dut/test/%s/%s' %(dut_sn, setup.id))
     else:
         newsetupform = SetupForm1()
     
