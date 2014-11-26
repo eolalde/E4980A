@@ -21,7 +21,7 @@ class HibachiIndexView(generic.ListView):
 
     def get_queryset(self):
         self.project = Project.objects.get(title=self.args[0])
-        return Dut.objects.filter(project=self.project).reverse()[:20]
+        return Dut.objects.filter(project=self.project).reverse()
     def get_context_data(self, **kwargs):
         context = super(HibachiIndexView, self).get_context_data(**kwargs)
         context["project"] = self.project
@@ -215,7 +215,7 @@ def newtest(request, dut_sn, setup_id):
             test.dut_nat = newtestform.cleaned_data['dut_nature']
             test.date_tested = datetime.datetime.now()
             test.save()
-            return HttpResponseRedirect('/dut/test/%s/%s/%s/' %(dut_sn, setup_id, test.id))
+            return HttpResponseRedirect('/dut/test/%s/%s/%s/runtest' %(dut_sn, setup_id, test.id))
     else:
         newtestform = NewTestForm()
     return render(request, 'dut/test_newform.html', {
@@ -271,14 +271,18 @@ def runtest(request, dut_sn, setup_id, test_id):
         f.write(str(res.id))
         f.write(str(h))
             
-    results = Results.objects.filter(test=test)
+#    results = Results.objects.filter(test=test)
     
-            
-    return render(request, 'dut/test_results.html', {
-                'results': results,
-                'dut': dut,
-                'setup': setup,
-                'test': test,
-                })
+#    tests = Tests.objects.filter(meas_setup=setup)
+        
+#    return render(request, 'dut/ttest_results.html', {
+#                'results': results,
+#                'dut': dut,
+#                'setup': setup,
+#                'test': test,
+#                'tests': tests,
+#                })
+                
+    return HttpResponseRedirect('/dut/test/%s/%s/%s/results' %(dut_sn, setup_id, test.id))
     
 

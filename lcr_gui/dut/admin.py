@@ -13,8 +13,11 @@ class MeasurementSetupAdmin(admin.ModelAdmin):
     
 class TestsAdmin(admin.ModelAdmin):
     fields=['meas_setup', 'dut_nat', 'date_tested']
+	
+
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Dut, DutAdmin)
+admin.site.register(Tests, TestsAdmin)
 #admin.site.register(MeasurementSetup, MeasurementSetupAdmin)
 #admin.site.register(Tests, TestsAdmin)
